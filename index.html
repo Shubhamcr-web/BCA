@@ -1,0 +1,80 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#documents">Documents</a></li>
+                <li><a href="#upload">Upload</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="home">
+            <h1>Welcome Friends On Our Website </h1>
+            <p>This Website Is Created For Sharing Notes, PYQs, books PDF And Other Educational Informations To BCA Students .</p>
+            <img src="Image1.png">
+            <video src="vedio.mp4"></video></video>
+        </section>
+        <section id="documents">
+            <h2>Document Library</h2>
+            <ul>
+<!-- list of uploaded documents and notes -->
+                <?php
+                // Connect to database
+                $servername = "localhost";
+                $username = "username";
+                $password = "password";
+                $dbname = "dbname";
+
+                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                // Retrieve files from database
+                $sql = "SELECT * FROM files";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<li><a href=�uploads/" . $row["filename"] . "�>" . $row["filename"] . "</a></li>";
+                    }
+                } else {
+                    echo "No files uploaded yet.";
+                }
+
+                $conn->close();
+                ?>
+            </ul>
+        </section>
+        <section id="upload">
+            <h2>Upload Files</h2>
+            <form action="connect.Php"method="post">
+                <input type="file" name="file" multiple>
+                <button>Upload</button>
+            </form>
+        </section>
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <p>Contact us at <a href="mailto:99shubhamjadhav99@gmail.com">99shubhamjadhav99@gmail.com</a></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Hi-Tech Study </p>
+    </footer>
+</body>
+</html>
+```
